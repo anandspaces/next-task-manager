@@ -10,16 +10,27 @@ export default function RegisterPage() {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    const res = await fetch("/api/auth", {
-      method: "POST",
-      body: JSON.stringify({ email, password, isNewUser: true }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    setLoading(false);
-    if (res.ok) router.push("/login");
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        body: JSON.stringify({ email, password, isNewUser: true }),
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      const data = await res.json();
+  
+      if (!res.ok) {
+        alert(data.error || "Something went wrong");
+        return;
+      }
+  
+      alert("Registration successful!");
+      router.push("/login");
+    } catch (error) {
+      alert("Network error, please try again.");
+    }
   };
+  
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
