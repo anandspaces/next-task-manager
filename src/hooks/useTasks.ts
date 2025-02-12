@@ -25,7 +25,7 @@ const useTasks = () => {
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["tasks"]);
+      queryClient.invalidateQueries({ queryKey: ["tasks"] }); // ✅ Fixed
     },
   });
 
@@ -41,7 +41,7 @@ const useTasks = () => {
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["tasks"]);
+      queryClient.invalidateQueries({ queryKey: ["tasks"] }); // ✅ Fixed
     },
   });
 
@@ -53,7 +53,7 @@ const useTasks = () => {
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["tasks"]);
+      queryClient.invalidateQueries({ queryKey: ["tasks"] }); // ✅ Fixed
     },
   });
 

@@ -33,7 +33,7 @@ export const tasks = pgTable("tasks", {
   dueDate: timestamp("due_date"),
   priority: taskPriorityEnum("priority").notNull().default("Medium"),
   status: taskStatusEnum("status").notNull().default("Pending"),
-  projectId: serial("project_id").references(() => projects.id, { onDelete: "CASCADE" }),
+  projectId: serial("project_id").references(() => projects.id, { onDelete: "cascade" }), // ✅ Use lowercase "cascade"
   createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
   updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
 });

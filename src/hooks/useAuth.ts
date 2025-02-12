@@ -36,7 +36,7 @@ const useAuth = () => {
       if (res.ok) {
         const data = await res.json();
         setUser(data.user);
-        queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries({ queryKey: ["user"] }); // ✅ Fixed syntax
         router.push("/dashboard");
       } else {
         throw new Error("Login failed");
@@ -50,7 +50,7 @@ const useAuth = () => {
     try {
       await fetch("/api/auth/logout", { method: "POST" });
       setUser(null);
-      queryClient.invalidateQueries(["user"]);
+      queryClient.invalidateQueries({ queryKey: ["user"] }); // ✅ Fixed syntax
       router.push("/login");
     } catch (error) {
       console.error("Logout failed:", error);
