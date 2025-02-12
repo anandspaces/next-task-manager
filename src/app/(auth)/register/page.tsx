@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -10,27 +11,30 @@ export default function RegisterPage() {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
       const res = await fetch("/api/auth", {
         method: "POST",
-        body: JSON.stringify({ email, password, isNewUser: true }),
+        body: JSON.stringify({ name, email, password, isNewUser: true }),
         headers: { "Content-Type": "application/json" },
       });
-  
+
       const data = await res.json();
-  
+      setLoading(false);
+
       if (!res.ok) {
         alert(data.error || "Something went wrong");
         return;
       }
-  
+
       alert("Registration successful!");
       router.push("/login");
     } catch (error) {
+      setLoading(false);
       alert("Network error, please try again.");
     }
   };
-  
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
@@ -39,6 +43,14 @@ export default function RegisterPage() {
         className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm"
       >
         <h2 className="text-2xl font-semibold mb-4 text-center">Register</h2>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
+          required
+          className="w-full p-3 border rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
         <input
           type="email"
           value={email}
