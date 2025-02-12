@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className="flex min-h-screen">
       {/* Sidebar (Hidden on mobile, can be toggled) */}
-      <aside
+      {/* <aside
         className={`fixed md:relative z-10 w-64 bg-gray-900 text-white p-4 transform transition-transform md:translate-x-0 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-64"
         }`}
@@ -25,7 +25,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <a href="/dashboard/tasks" className="block p-2 rounded hover:bg-gray-700">Tasks</a>
           <a href="/dashboard/projects" className="block p-2 rounded hover:bg-gray-700">Projects</a>
         </nav>
-      </aside>
+      </aside> */}
 
       {/* Main content */}
       <div className="flex-1 p-6 md:ml-64">
