@@ -9,6 +9,12 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const { name, description } = await req.json();
-  const newProject = await db.insert(projects).values({ name, description }).returning("*");
+  
+  // ✅ Explicitly specify the returning fields instead of "*"
+  const newProject = await db
+    .insert(projects)
+    .values({ name, description })
+    .returning({ id: projects.id, name: projects.name, description: projects.description });
+
   return NextResponse.json(newProject);
 }
